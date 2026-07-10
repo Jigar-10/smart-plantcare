@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare | Smart Plant Watering Reminders</title>
+    <meta name="description" content="Maintain a healthy digital garden. Get smart watering reminders, detailed care guides, and browse medicinal, indoor, and succulent plants. Aligned with SDG 15 - Life on Land.">
+    <!-- Fonts & CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        /* Special styles for index.html hero section */
+        .hero {
+            position: relative;
+            padding: 160px 0 100px 0;
+            background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-main) 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition-speed);
+        }
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--bg-main) 100%);
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-content {
+            z-index: 10;
+        }
+        .hero-title-container {
+            min-height: 120px; /* Prevent layout shift during typing */
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            line-height: 1.15;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 800;
+            border-right: 3px solid var(--accent-color);
+            white-space: normal;
+            display: inline-block;
+            animation: blinkCursor 0.75s step-end infinite;
+        }
+        @keyframes blinkCursor {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color); }
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 580px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        .hero-illustration {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .floating-leaf {
+            position: absolute;
+            animation: floatLeaf 6s ease-in-out infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        @keyframes floatLeaf {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+        .feature-icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background-color: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        .sdg-section {
+            background: linear-gradient(135deg, #1b4332 0%, #081c15 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: var(--shadow-medium);
+            margin-top: 40px;
+        }
+        [data-theme="dark"] .sdg-section {
+            background: linear-gradient(135deg, #14261c 0%, #09120d 100%);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- Page Loader Screen --- -->
+    <div id="pageLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-main); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity var(--transition-speed), visibility var(--transition-speed);">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <p style="font-family: var(--font-heading); font-weight: 600; color: var(--primary-color); font-size: 1.2rem; margin-top: 16px;">Sprouting PlantCare...</p>
+        </div>
+    </div>
+
+    <!-- --- Sticky Navbar --- -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span>🌱</span> PlantCare
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="index.html#features" class="nav-link">Features</a></li>
+                <li><a href="garden.html" class="nav-link">My Garden</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="care-guide.html" class="nav-link">Care Guides</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <button class="theme-toggle-btn" id="theme-toggle">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --- Hero Section --- -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content slide-up">
+                    <div class="hero-title-container">
+                        <h1 class="hero-title" id="typingHeroTitle">Keep Your Plants Healthy With Smart Reminders</h1>
+                    </div>
+                    <p class="hero-subtitle">
+                        Track watering schedules, explore care guides, and build your beautiful digital garden with our easy-to-use plant helper.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="garden.html" class="btn btn-primary">Get Started 🌿</a>
+                        <a href="gallery.html" class="btn btn-secondary">Explore Plants 🔍</a>
+                    </div>
+                </div>
+                
+                <div class="hero-illustration zoom-in">
+                    <!-- Beautiful Main Nature Illustration -->
+                    <svg viewBox="0 0 400 400" width="100%" height="100%" max-width="380px">
+                        <defs>
+                            <linearGradient id="potGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ea580c"/>
+                                <stop offset="100%" stop-color="#9a3412"/>
+                            </linearGradient>
+                            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#52b788"/>
+                                <stop offset="100%" stop-color="#1b4332"/>
+                            </linearGradient>
+                            <linearGradient id="bgCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#d8f3dc" stop-opacity="0.6"/>
+                                <stop offset="100%" stop-color="#b7e4c7" stop-opacity="0.2"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Decorative background circle -->
+                        <circle cx="200" cy="200" r="150" fill="url(#bgCircleGrad)"/>
+                        
+                        <!-- Pot -->
+                        <path d="M140 280 L260 280 L275 350 L125 350 Z" fill="url(#potGrad)" filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.1))"/>
+                        <ellipse cx="200" cy="280" rx="60" ry="12" fill="#c2410c"/>
+                        <!-- Soil -->
+                        <ellipse cx="200" cy="276" rx="54" ry="8" fill="#582f0e"/>
+
+                        <!-- Plant Leaves (Elegant curves) -->
+                        <path d="M200 276 Q130 180 80 180 Q130 220 200 276" fill="url(#leafGrad)" />
+                        <path d="M200 276 Q270 180 320 180 Q270 220 200 276" fill="url(#leafGrad)" />
+                        <path d="M200 276 Q160 140 130 90 Q170 130 200 276" fill="url(#leafGrad)" />
+                        <path d="M200 276 Q240 140 270 90 Q230 130 200 276" fill="url(#leafGrad)" />
+                        <path d="M200 276 Q200 120 200 50 Q215 110 200 276" fill="#74c69d" />
+
+                        <!-- Watering Can Details -->
+                        <path d="M330 240 L380 260 L380 275 L330 255 Z" fill="#94a3b8" />
+                        <rect x="290" y="210" width="45" height="50" rx="10" fill="#cbd5e1" transform="rotate(-15 290 210)"/>
+                    </svg>
+
+                    <!-- Animated floating icons around the plant -->
+                    <div class="floating-leaf" style="top: 15%; left: 10%; animation-duration: 5s;">☀️</div>
+                    <div class="floating-leaf" style="top: 45%; right: 5%; animation-duration: 7s;">💧</div>
+                    <div class="floating-leaf" style="bottom: 15%; left: 5%; animation-duration: 8s;">🌱</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- --- Features Section --- -->
+    <main>
+        <section class="section" id="features">
+            <div class="container">
+                <div class="section-title-wrapper reveal">
+                    <h2 class="section-title">Smart Gardening Features</h2>
+                    <p class="section-subtitle">Everything you need to keep your indoor and outdoor plant collection thriving and green.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    
+                    <!-- Feature 1: Add Plants -->
+                    <div class="glass-card hover-lift reveal delay-1" style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div class="feature-icon-box">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 12px; color: var(--primary-color);">Digital Plant Collection</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; flex-grow: 1;">
+                            Easily add plants to your personal collection. Set customized watering frequencies and trace individual last-watered and next-watered metrics.
+                        </p>
+                        <a href="garden.html" class="btn-link" style="color: var(--primary-light); font-weight: 600;">Manage Garden &rarr;</a>
+                    </div>
+
+                    <!-- Feature 2: Watering Reminder -->
+                    <div class="glass-card hover-lift reveal delay-2" style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div class="feature-icon-box">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 12px; color: var(--primary-color);">Watering Reminders</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; flex-grow: 1;">
+                            Calculate precise watering schedules automatically. View upcoming due plants categorized by urgency (Today, Tomorrow, or This Week) with custom checklists.
+                        </p>
+                        <a href="garden.html#reminders" class="btn-link" style="color: var(--primary-light); font-weight: 600;">Check Water Schedule &rarr;</a>
+                    </div>
+
+                    <!-- Feature 3: Care Tips -->
+                    <div class="glass-card hover-lift reveal delay-3" style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div class="feature-icon-box">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 12px; color: var(--primary-color);">Care Guides</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; flex-grow: 1;">
+                            Explore curated diagnostics and specifications for common house plants. Learn ideal sunlight levels, humidity parameters, and solutions to common symptoms.
+                        </p>
+                        <a href="care-guide.html" class="btn-link" style="color: var(--primary-light); font-weight: 600;">Read Guides &rarr;</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- --- SGD Section --- -->
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+                <div class="sdg-section reveal">
+                    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center;">
+                        <div>
+                            <div style="background: rgba(255,255,255,0.15); width: fit-content; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; color: var(--accent-color);">
+                                SDG Goal 15 - Life on Land
+                            </div>
+                            <h2 style="font-family: var(--font-heading); font-size: 2.3rem; margin-bottom: 20px; line-height: 1.2;">Protect, Restore and Promote Sustainable Use of Terrestrial Ecosystems</h2>
+                            <p style="color: #c4d7cb; margin-bottom: 30px; font-size: 1rem; line-height: 1.7;">
+                                House plants and gardens play a key role in improving indoor ecosystems, purifying air quality, and promoting biodiversity on a local level. By tracking and maintaining local flora, we build connections to our natural environment and aid environmental health.
+                            </p>
+                            <a href="about.html" class="btn btn-primary" style="background-color: var(--accent-color); border-color: var(--accent-color); color: var(--primary-dark);">Learn More About SDG 15</a>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <svg viewBox="0 0 300 300" width="100%" max-width="260px" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 24px;">
+                                <!-- Globe / Nature Illustration -->
+                                <circle cx="150" cy="150" r="80" fill="none" stroke="#52b788" stroke-width="4" stroke-dasharray="8 6"/>
+                                <path d="M100 150 C110 110 130 90 150 90 C170 90 190 110 200 150" stroke="#74c69d" stroke-width="3" fill="none" />
+                                <path d="M100 150 C110 190 130 210 150 210 C170 210 190 190 200 150" stroke="#74c69d" stroke-width="3" fill="none" />
+                                <!-- Seedling growing out -->
+                                <path d="M150 230 L150 120" stroke="#52b788" stroke-width="6" stroke-linecap="round" />
+                                <path d="M150 160 C130 140 110 145 100 155 C120 155 140 160 150 160 Z" fill="#95d5b2" />
+                                <path d="M150 140 C170 120 190 125 200 135 C180 135 160 140 150 140 Z" fill="#74c69d" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- --- Footer --- -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="color: white; margin-bottom: 12px; display: inline-block;">
+                        <span>🌱</span> PlantCare
+                    </a>
+                    <p>Keep your indoor green spaces healthy and active. Track, learn, and grow your beautiful garden.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">F</a>
+                        <a href="#" class="social-icon" aria-label="Twitter">T</a>
+                        <a href="#" class="social-icon" aria-label="Instagram">I</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="garden.html">My Garden</a></li>
+                        <li><a href="gallery.html">Plant Gallery</a></li>
+                        <li><a href="care-guide.html">Care Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">SDG 15 Theme</a></li>
+                        <li><a href="contact.html">Support Form</a></li>
+                        <li><a href="about.html#lab-details">Student Details</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-sdg">
+                    <div class="sdg-badge">15</div>
+                    <div class="sdg-desc">
+                        <h5>SDG 15: Life on Land</h5>
+                        <p>Web Computing Skill Lab project supporting environmental awareness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 PlantCare. Built for B.Tech IT Semester 3 Web Computing Lab.</p>
+                <p>Designed with Nature UI principles</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- Scroll To Top --- -->
+    <button class="scroll-top-btn" id="scrollTopBtn" title="Scroll back to top">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/animation.js"></script>
+</body>
+</html>

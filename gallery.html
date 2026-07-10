@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Gallery | Explore Species</title>
+    <meta name="description" content="Search and browse botanical specifications, ideal requirements, and common troubleshooting tips for house and garden plants.">
+    <!-- Fonts & CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .gallery-header {
+            padding: 140px 0 40px 0;
+            background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-main) 100%);
+            text-align: center;
+        }
+        .gallery-toolbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        /* Style for SVG scaling in cards */
+        .plant-svg {
+            max-width: 140px;
+            max-height: 140px;
+            transition: transform var(--transition-speed);
+        }
+        .glass-card:hover .plant-svg {
+            transform: scale(1.1) rotate(2deg);
+        }
+        /* Modal specific care guidelines items */
+        .care-detail-item {
+            background-color: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- Page Loader Screen --- -->
+    <div id="pageLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-main); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity var(--transition-speed), visibility var(--transition-speed);">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <p style="font-family: var(--font-heading); font-weight: 600; color: var(--primary-color); font-size: 1.2rem; margin-top: 16px;">Loading Botanical Records...</p>
+        </div>
+    </div>
+
+    <!-- --- Sticky Navbar --- -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span>🌱</span> PlantCare
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#features" class="nav-link">Features</a></li>
+                <li><a href="garden.html" class="nav-link">My Garden</a></li>
+                <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                <li><a href="care-guide.html" class="nav-link">Care Guides</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <button class="theme-toggle-btn" id="theme-toggle">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --- Gallery Page Title & Header --- -->
+    <header class="gallery-header">
+        <div class="container reveal">
+            <h1 style="font-family: var(--font-heading); font-size: 2.8rem; color: var(--primary-color); font-weight: 800; margin-bottom: 8px;">Plant Care Gallery</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Discover detailed guidelines for common plants and instantly import them into your personal garden tracker.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- --- Search and Filter Tabs --- -->
+        <section class="gallery-toolbar reveal delay-1">
+            <div class="search-wrapper" style="width: 100%; max-width: 500px; position: relative;">
+                <input type="text" id="gallerySearch" class="form-control" placeholder="Search by plant name, scientific details..." style="padding: 14px 20px; border-radius: 30px; text-align: center;">
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="filter-tabs">
+                <button class="btn btn-primary filter-btn active" data-filter="all" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">All Plants</button>
+                <button class="btn btn-secondary filter-btn" data-filter="indoor" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">Indoor</button>
+                <button class="btn btn-secondary filter-btn" data-filter="outdoor" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">Outdoor</button>
+                <button class="btn btn-secondary filter-btn" data-filter="flowering" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">Flowering</button>
+                <button class="btn btn-secondary filter-btn" data-filter="succulents" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">Succulents</button>
+                <button class="btn btn-secondary filter-btn" data-filter="medicinal" style="border-radius: 20px; padding: 8px 20px; font-size: 0.9rem;">Medicinal</button>
+            </div>
+        </section>
+
+        <!-- --- Plant Cards Grid --- -->
+        <section class="gallery-grid" id="galleryGrid"></section>
+    </main>
+
+    <!-- --- Plant Details Modal --- -->
+    <div class="modal-overlay" id="plantModal">
+        <div class="modal-content" style="max-width: 750px;">
+            <button class="modal-close">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- --- Footer --- -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="color: white; margin-bottom: 12px; display: inline-block;">
+                        <span>🌱</span> PlantCare
+                    </a>
+                    <p>Keep your indoor green spaces healthy and active. Track, learn, and grow your beautiful garden.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">F</a>
+                        <a href="#" class="social-icon">T</a>
+                        <a href="#" class="social-icon">I</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="garden.html">My Garden</a></li>
+                        <li><a href="gallery.html">Plant Gallery</a></li>
+                        <li><a href="care-guide.html">Care Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">SDG 15 Theme</a></li>
+                        <li><a href="contact.html">Support Form</a></li>
+                        <li><a href="about.html#lab-details">Student Details</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-sdg">
+                    <div class="sdg-badge">15</div>
+                    <div class="sdg-desc">
+                        <h5>SDG 15: Life on Land</h5>
+                        <p>Web Computing Skill Lab project supporting environmental awareness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 PlantCare. Built for B.Tech IT Semester 3 Web Computing Lab.</p>
+                <p>Designed with Nature UI principles</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- Scroll To Top --- -->
+    <button class="scroll-top-btn" id="scrollTopBtn">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | PlantCare Support</title>
+    <meta name="description" content="Reach out to the PlantCare team for questions about plant diagnostics, reminders, and gardening guides.">
+    <!-- Fonts & CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .contact-header {
+            padding: 140px 0 40px 0;
+            background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-main) 100%);
+            text-align: center;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+        .contact-info-box {
+            padding: 40px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .contact-detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- Page Loader Screen --- -->
+    <div id="pageLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-main); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity var(--transition-speed), visibility var(--transition-speed);">
+        <div style="text-align: center;">
+            <div class="loading-spinner"></div>
+            <p style="font-family: var(--font-heading); font-weight: 600; color: var(--primary-color); font-size: 1.2rem; margin-top: 16px;">Opening Communication Channels...</p>
+        </div>
+    </div>
+
+    <!-- --- Sticky Navbar --- -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span>🌱</span> PlantCare
+            </a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#features" class="nav-link">Features</a></li>
+                <li><a href="garden.html" class="nav-link">My Garden</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="care-guide.html" class="nav-link">Care Guides</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <button class="theme-toggle-btn" id="theme-toggle">🌙</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --- Contact Page Title --- -->
+    <header class="contact-header">
+        <div class="container reveal">
+            <h1 style="font-family: var(--font-heading); font-size: 2.8rem; color: var(--primary-color); font-weight: 800; margin-bottom: 8px;">Contact Us</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Have suggestions or facing troubleshooting symptoms? Send us a message and we'll reply shortly.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- --- Contact Form and Info --- -->
+        <section class="contact-grid">
+            
+            <!-- Details Box -->
+            <div class="glass-card contact-info-box reveal delay-1">
+                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--primary-color); margin-bottom: 24px;">Get in Touch</h2>
+                <p style="margin-bottom: 30px; font-size: 0.95rem;">
+                    Whether you are an indoor gardener, a high-tech researcher, or a student trying out botanical codes, we welcome all ideas and comments.
+                </p>
+
+                <div class="contact-detail-row">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4 style="font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 4px;">Laboratory Location</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">IT Department Web Lab, B.Tech Campus</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail-row">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h4 style="font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 4px;">Email Support</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">support@plantcare-sdg15.edu</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail-row">
+                    <div class="contact-icon">🕒</div>
+                    <div>
+                        <h4 style="font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 4px;">Active Hours</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Monday &ndash; Friday, 9:00 AM &ndash; 5:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Box -->
+            <div class="glass-card reveal delay-2">
+                <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--primary-color); margin-bottom: 24px;">Send Message</h2>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName" class="form-label">Full Name</label>
+                        <input type="text" id="contactName" class="form-control" placeholder="e.g. Alice Vance" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail" class="form-label">Email Address</label>
+                        <input type="email" id="contactEmail" class="form-control" placeholder="e.g. alice@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMsg" class="form-label">Message Content</label>
+                        <textarea id="contactMsg" class="form-control" placeholder="Write your details..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px 20px;">
+                        Send Message &rarr;
+                    </button>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- --- Footer --- -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="color: white; margin-bottom: 12px; display: inline-block;">
+                        <span>🌱</span> PlantCare
+                    </a>
+                    <p>Keep your indoor green spaces healthy and active. Track, learn, and grow your beautiful garden.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">F</a>
+                        <a href="#" class="social-icon">T</a>
+                        <a href="#" class="social-icon">I</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="garden.html">My Garden</a></li>
+                        <li><a href="gallery.html">Plant Gallery</a></li>
+                        <li><a href="care-guide.html">Care Guides</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">SDG 15 Theme</a></li>
+                        <li><a href="contact.html">Support Form</a></li>
+                        <li><a href="about.html#lab-details">Student Details</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-sdg">
+                    <div class="sdg-badge">15</div>
+                    <div class="sdg-desc">
+                        <h5>SDG 15: Life on Land</h5>
+                        <p>Web Computing Skill Lab project supporting environmental awareness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 PlantCare. Built for B.Tech IT Semester 3 Web Computing Lab.</p>
+                <p>Designed with Nature UI principles</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- Scroll To Top --- -->
+    <button class="scroll-top-btn" id="scrollTopBtn">↑</button>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/animation.js"></script>
+    <script>
+        // Form Validation & Success Toast trigger
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const msg = document.getElementById('contactMsg').value.trim();
+
+            if (name === '' || email === '' || msg === '') {
+                showToast('Please fill out all contact fields.', 'error');
+                return;
+            }
+
+            // Success popup trigger (do not postback)
+            showToast('Message submitted successfully! 🌿', 'success');
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+</body>
+</html>
