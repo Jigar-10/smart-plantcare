@@ -1,0 +1,22 @@
+<!-- Generated with Nano Banana -->
+<svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7ecb8b" />
+      <stop offset="100%" stop-color="#3d6f3a" />
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffef99" />
+      <stop offset="100%" stop-color="#f7d16a" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="32" fill="#ebf4e9" />
+  <ellipse cx="160" cy="286" rx="110" ry="20" fill="#d3e4d5" />
+  <rect x="108" y="190" width="104" height="106" rx="20" fill="#a8d09a" />
+  <path d="M160 190c-24 0-24-80 0-80s24 80 0 80Z" fill="url(#g1)" />
+  <path d="M160 146c-32 0-36-68 0-68s32 68 0 68Z" fill="url(#g1)" />
+  <path d="M160 118c-28 0-30-54 0-54s28 54 0 54Z" fill="url(#g1)" />
+  <circle cx="190" cy="90" r="16" fill="url(#g2)" opacity="0.85" />
+  <path d="M130 220c-12-20-20-48-10-58s28-4 40 4" fill="none" stroke="#3d6f3a" stroke-width="10" stroke-linecap="round" />
+  <path d="M190 220c14-22 22-36 16-52s-22-20-34-12" fill="none" stroke="#3d6f3a" stroke-width="10" stroke-linecap="round" />
+</svg>
